@@ -21,12 +21,13 @@ jobs:
         key: buildozer-${{ runner.os }}-${{ hashFiles('buildozer.spec') }}
         restore-keys: buildozer-${{ runner.os }}-
 
-    - name: Build APK using buildozer-action
-      uses: ArtemSBulgakov/buildozer-action@v1
-      with:
-        command: buildozer android debug
-        workdir: .
-        buildozer_version: stable
+    - name: Build APK with kivy/buildozer Docker
+      run: |
+        docker run --rm \
+          -v ${{ github.workspace }}:/home/user/hostcwd \
+          -v $HOME/.buildozer:/home/user/.buildozer \
+          kivy/buildozer:latest \
+          android debug
 
     - name: Upload APK artifact
       uses: actions/upload-artifact@v4
@@ -40,5 +41,5 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: build-log
-        path: .buildozer/android/app/build.log
+        path: bin/
         retention-days: 7
