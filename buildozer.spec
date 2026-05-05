@@ -14,11 +14,13 @@ fullscreen = 1
 
 android.api = 33
 android.minapi = 21
-android.ndk = 25b
+android.ndk = 23b
 android.archs = arm64-v8a
 android.allow_backup = True
 android.features = android.hardware.touchscreen.multitouch.distinct
 android.logcat_filters = *:S python:D
+
+p4a.branch = master
 
 [buildozer]
 log_level = 2
